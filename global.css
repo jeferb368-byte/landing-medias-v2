@@ -1,0 +1,197 @@
+/* ================================================================
+   SISTEMA DE DISEÑO — Cuidado personal (rosa + gris cálido)
+   Tomado de los creativos para que la página y los anuncios se
+   vean de la misma marca.
+   ================================================================ */
+
+:root {
+  /* Superficies */
+  --c-bg: #fff7f9;
+  --c-bg-2: #ffffff;
+  --c-surface: #ffffff;
+  --c-surface-2: #fdeef2;
+  --c-border: #f4dbe3;
+  --c-border-soft: #faeaef;
+
+  /* Marca */
+  --c-rosa: #e8547c;
+  --c-rosa-fuerte: #d13a64;
+  --c-rosa-suave: #fdeef2;
+  --c-tinta: #1f2937;
+  --c-green: #16a34a;
+  --c-red: #dc2626;
+
+  /* Texto */
+  --c-text: #2b2229;
+  --c-text-soft: #6b5e66;
+  --c-text-dim: #9c8d95;
+
+  /* Tipografía */
+  --f-display: 'Poppins', 'Segoe UI', sans-serif;
+  --f-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Escala fluida */
+  --t-h1: clamp(2.2rem, 6.5vw, 4rem);
+  --t-h2: clamp(1.7rem, 4.6vw, 2.8rem);
+  --t-h3: clamp(1.1rem, 2.8vw, 1.45rem);
+  --t-body: clamp(0.95rem, 2.2vw, 1.0625rem);
+
+  /* Ritmo */
+  --h-topbar: 38px;
+  --space-section: clamp(3.25rem, 8vw, 6.5rem);
+  --wrap: 1180px;
+  --radius: 20px;
+  --radius-sm: 14px;
+
+  /* Efectos */
+  --shadow-card: 0 16px 44px rgba(232, 84, 124, 0.14);
+  --shadow-suave: 0 6px 20px rgba(232, 84, 124, 0.1);
+  --grad-rosa: linear-gradient(135deg, #f06292 0%, #e8547c 55%, #d13a64 100%);
+  /* Mismo rosa, pero oscuro de punta a punta: es el unico que admite texto
+     blanco encima. Sobre --grad-rosa el blanco se queda en 3.06 de contraste
+     en la mitad clara del degradado y el texto casi no se lee.
+     Usa este en cualquier boton o sello con letra blanca. */
+  --grad-rosa-solido: linear-gradient(135deg, #c4335c 0%, #a82850 100%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--f-body);
+  font-size: var(--t-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  background: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--c-tinta);
+}
+
+h1 {
+  font-size: var(--t-h1);
+  font-weight: 800;
+}
+h2 {
+  font-size: var(--t-h2);
+}
+h3 {
+  font-size: var(--t-h3);
+}
+
+::selection {
+  background: var(--c-rosa);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-rosa);
+  outline-offset: 3px;
+}
+
+/* ---------------- utilidades compartidas ---------------- */
+
+.wrap {
+  width: min(100% - 2.5rem, var(--wrap));
+  margin-inline: auto;
+}
+
+@media (min-width: 620px) {
+  :root {
+    --h-topbar: 42px;
+  }
+}
+
+@media (max-width: 560px) {
+  .wrap {
+    width: min(100% - 1.75rem, var(--wrap));
+  }
+}
+
+.section {
+  padding-block: var(--space-section);
+  position: relative;
+}
+
+/* Palabra destacada del titular */
+.rosa {
+  color: var(--c-rosa);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
